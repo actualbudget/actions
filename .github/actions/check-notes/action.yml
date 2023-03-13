@@ -1,0 +1,14 @@
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 18
+    - name: Install dependencies
+      shell: bash
+      run: cd release-notes; npm ci || cat /home/runner/.npm/_logs/*
+    - name: Check release notes
+      env:
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: cd release-notes; node check.js

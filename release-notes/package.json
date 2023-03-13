@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "prettier": "^2.8.4"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "listify": "^1.0.3"
+  }
+}
