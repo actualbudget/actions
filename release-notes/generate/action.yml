@@ -1,19 +1,13 @@
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 18
-    - name: Install dependencies
-      shell: bash
-      run: cd release-notes; npm ci || cat /home/runner/.npm/_logs/*
+    - uses: ./setup
     - name: Generate release notes
       id: generate
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
-      run: cd release-notes; node generate.js
+      run: cd actions/release-notes; node generate.js
     - name: Find Comment
       uses: peter-evans/find-comment@v2
       id: fc
@@ -33,4 +27,3 @@ runs:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         edit-mode: replace
         body: ${{ steps.generate.outputs.comment }}
-

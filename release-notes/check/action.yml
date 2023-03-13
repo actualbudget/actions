@@ -1,0 +1,8 @@
+runs:
+  using: composite
+  steps:
+    - uses: ./setup
+    - name: Check release notes
+      env:
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: cd actions/release-notes; node check.js

@@ -1,0 +1,12 @@
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+      repository: actualbudget/actions
+      path: actions
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 18
+    - name: Install dependencies
+      shell: bash
+      run: cd actions/release-notes; npm ci
