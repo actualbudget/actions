@@ -1,8 +1,9 @@
 runs:
   using: composite
   steps:
-    - uses: ./setup
+    - uses: actualbudget/actions/setup@main
     - name: Check release notes
       env:
         PR_NUMBER: ${{ github.event.pull_request.number }}
-      run: cd actions/release-notes; node check.js
+      shell: bash
+      run: node actions/release-notes/check/index.js
