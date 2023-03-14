@@ -78,14 +78,14 @@ await setOutput(
 );
 
 await group("Remove used release notes", async () => {
-  await exec("rm -r ../upcoming-release-notes/*.md", { stdio: "inherit" });
-  await exec("git checkout ../upcoming-release-notes/README.md", {
+  await exec("rm -r upcoming-release-notes/*.md", { stdio: "inherit" });
+  await exec("git checkout upcoming-release-notes/README.md", {
     stdio: "inherit",
   });
 });
 
 await group("Commit and push", async () => {
-  await exec("git add ../upcoming-release-notes", { stdio: "inherit" });
+  await exec("git add upcoming-release-notes", { stdio: "inherit" });
   const name = "github-actions[bot]";
   const email = "41898282+github-actions[bot]@users.noreply.github.com";
   await exec("git commit -m 'Remove used release notes'", {
