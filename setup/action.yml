@@ -10,4 +10,8 @@ runs:
         node-version: 18
     - name: Install dependencies
       shell: bash
-      run: cd actions/release-notes; npm ci
+      run: |
+        cd actions/release-notes
+        echo '::group::npm ci'
+        npm ci
+        echo '::endgroup::'
