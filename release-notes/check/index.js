@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import matter from "gray-matter";
 
+console.log("Looking in " + fs.realpathSync("upcoming-release-notes"));
+
 const expectedPath = `upcoming-release-notes/${process.env.PR_NUMBER}.md`;
 
 function reportError(message) {
