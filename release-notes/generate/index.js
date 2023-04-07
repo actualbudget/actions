@@ -5,7 +5,7 @@ import * as childProcess from "node:child_process";
 import matter from "gray-matter";
 import listify from "listify";
 
-import { categoryOrder } from "../util";
+import { categoryOrder } from "../util.js";
 
 const exec = promisify(childProcess.exec);
 

@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import matter from "gray-matter";
 
-import { categoryOrder } from "../util";
+import { categoryOrder } from "../util.js";
 
 console.log("Looking in " + fs.realpathSync("upcoming-release-notes"));
 
