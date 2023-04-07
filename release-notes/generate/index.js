@@ -77,6 +77,17 @@ await setOutput(
   `<!-- auto-generated-release-notes -->\nHere are the automatically generated release notes!\n\n~~~markdown\n${notes}\n~~~`
 );
 
+const releaseNotes = await fs
+  .readdir("upcoming-release-notes")
+  .then((contents) =>
+    contents.filter((f) => f.endsWith(".md") && f !== "README.md")
+  );
+
+if (releaseNotes.length === 0) {
+  console.log("No release notes found, no cleanup needed");
+  process.exit(0);
+}
+
 await group("Remove used release notes", async () => {
   await exec("rm -r upcoming-release-notes/*.md", { stdio: "inherit" });
   await exec("git checkout upcoming-release-notes/README.md", {
