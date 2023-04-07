@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import matter from "gray-matter";
 
+import { categoryOrder } from "../util";
+
 console.log("Looking in " + fs.realpathSync("upcoming-release-notes"));
 
 const expectedPath = `upcoming-release-notes/${process.env.PR_NUMBER}.md`;
@@ -28,6 +30,14 @@ function reportError(message) {
 
   if (!data.category) {
     reportError(`Release note is missing a category.`);
+    return;
+  }
+  if (!categoryOrder.includes(data.category)) {
+    reportError(
+      `Release note category "${data.category}" is not one of ${categoryOrder
+        .map(JSON.stringify)
+        .join(", ")}`
+    );
     return;
   }
 

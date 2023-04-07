@@ -5,9 +5,9 @@ import * as childProcess from "node:child_process";
 import matter from "gray-matter";
 import listify from "listify";
 
-const exec = promisify(childProcess.exec);
+import { categoryOrder } from "../util";
 
-const categoryOrder = ["Features", "Enhancements", "Bugfix", "Maintenance"];
+const exec = promisify(childProcess.exec);
 
 collapsedLog("Environment", process.env);
 
