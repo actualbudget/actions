@@ -11,10 +11,8 @@ const exec = promisify(childProcess.exec);
 
 collapsedLog("Environment", process.env);
 
-await group("Git status", async () => {
-  await exec("git status", { stdio: "inherit" });
-  await exec("git rev-parse HEAD", { stdio: "inherit" });
-});
+await exec("git status", { stdio: "inherit" });
+await exec("git rev-parse HEAD", { stdio: "inherit" });
 
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
 
