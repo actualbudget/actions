@@ -109,7 +109,9 @@ await group("Commit and push", async () => {
       GIT_COMMITTER_EMAIL: email,
     },
   });
-  await exec("git push", { stdio: "inherit" });
+  await exec("git push origin HEAD:" + process.env.GITHUB_HEAD_REF, {
+    stdio: "inherit",
+  });
 });
 
 async function parseReleaseNotes(dir) {
