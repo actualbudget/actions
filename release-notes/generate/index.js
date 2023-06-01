@@ -89,6 +89,9 @@ if (releaseNotes.length === 0) {
 }
 
 await group("Remove used release notes", async () => {
+  await exec("git checkout " + process.env.GITHUB_HEAD_REF, {
+    stdio: "inherit",
+  });
   await exec("rm -r upcoming-release-notes/*.md", { stdio: "inherit" });
   await exec("git checkout upcoming-release-notes/README.md", {
     stdio: "inherit",
@@ -109,9 +112,7 @@ await group("Commit and push", async () => {
       GIT_COMMITTER_EMAIL: email,
     },
   });
-  await exec("git push origin HEAD:" + process.env.GITHUB_HEAD_REF, {
-    stdio: "inherit",
-  });
+  await exec("git push origin", { stdio: "inherit" });
 });
 
 async function parseReleaseNotes(dir) {
