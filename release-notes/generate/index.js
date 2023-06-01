@@ -46,7 +46,7 @@ const apiResult = await fetch("https://api.github.com/graphql", {
     variables: {
       name: repo,
       owner,
-      headRefName: process.env.GITHUB_REF_NAME,
+      headRefName: process.env.GITHUB_HEAD_REF,
     },
   }),
 }).then((res) => res.json());
