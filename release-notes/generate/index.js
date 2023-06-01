@@ -11,6 +11,11 @@ const exec = promisify(childProcess.exec);
 
 collapsedLog("Environment", process.env);
 
+await group("Git status", async () => {
+  await exec("git status", { stdio: "inherit" });
+  await exec("git rev-parse HEAD", { stdio: "inherit" });
+});
+
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
 
 const apiResult = await fetch("https://api.github.com/graphql", {
@@ -89,9 +94,6 @@ if (releaseNotes.length === 0) {
 }
 
 await group("Remove used release notes", async () => {
-  await exec("git checkout " + process.env.GITHUB_HEAD_REF, {
-    stdio: "inherit",
-  });
   await exec("rm -r upcoming-release-notes/*.md", { stdio: "inherit" });
   await exec("git checkout upcoming-release-notes/README.md", {
     stdio: "inherit",
