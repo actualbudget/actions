@@ -46,7 +46,7 @@ const apiResult = await fetch("https://api.github.com/graphql", {
     variables: {
       name: repo,
       owner,
-      headRefName: process.env.GITHUB_HEAD_REF,
+      headRefName: process.env.GITHUB_HEAD_REF || process.env.GITHUB_REF_NAME,
     },
   }),
 }).then((res) => res.json());
@@ -89,12 +89,14 @@ if (releaseNotes.length === 0) {
 }
 
 await group("Remove used release notes", async () => {
-  await exec(`git fetch origin ${process.env.GITHUB_HEAD_REF}`, {
-    stdio: "inherit",
-  });
-  await exec(`git checkout ${process.env.GITHUB_HEAD_REF}`, {
-    stdio: "inherit",
-  });
+  if (process.env.GITHUB_HEAD_REF) {
+    await exec(`git fetch origin ${process.env.GITHUB_HEAD_REF}`, {
+      stdio: "inherit",
+    });
+    await exec(`git checkout ${process.env.GITHUB_HEAD_REF}`, {
+      stdio: "inherit",
+    });
+  }
   await exec("rm -r upcoming-release-notes/*.md", { stdio: "inherit" });
   await exec("git checkout upcoming-release-notes/README.md", {
     stdio: "inherit",
