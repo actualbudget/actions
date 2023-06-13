@@ -128,7 +128,7 @@ async function parseReleaseNotes(dir) {
       const { data, content: body } = matter(content);
       const number = name.replace(".md", "");
       const authors = listify(
-        data.authors.map((a) => `[${a}]`),
+        data.authors.map((a) => `@${a}`),
         { finalWord: "&" }
       );
       return {
