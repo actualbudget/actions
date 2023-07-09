@@ -148,9 +148,9 @@ async function parseReleaseNotes(dir) {
 }
 
 function printNotes(notes) {
-  const printedNotes = Object.entries(notes).map(
-    ([category, values]) => `#### ${category}\n\n${values.join("\n")}`
-  );
+  const printedNotes = Object.entries(notes)
+    .filter(([_, values]) => values.length > 0)
+    .map(([category, values]) => `#### ${category}\n\n${values.join("\n")}`);
   return `Version: ${version}\n\n${printedNotes.join("\n\n")}`;
 }
 
