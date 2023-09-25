@@ -151,7 +151,12 @@ function printNotes(notes) {
   const printedNotes = Object.entries(notes)
     .filter(([_, values]) => values.length > 0)
     .map(([category, values]) => `#### ${category}\n\n${values.join("\n")}`);
-  return `Version: ${version}\n\n${printedNotes.join("\n\n")}`;
+
+  const today = new Date();
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const formattedDate = `${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+
+  return `Version: ${version}\n${formattedDate}\n\n${printedNotes.join("\n\n")}`;
 }
 
 async function collapsedLog(name, value) {
