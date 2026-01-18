@@ -5,7 +5,7 @@ import * as childProcess from "node:child_process";
 import matter from "gray-matter";
 import listify from "listify";
 
-import { categoryOrder } from "../util.js";
+import { categoryAutocorrections, categoryOrder } from "../util.js";
 
 const exec = promisify(childProcess.exec);
 
@@ -132,7 +132,7 @@ async function parseReleaseNotes(dir) {
         { finalWord: "&" }
       );
       return {
-        category: data.category,
+        category: categoryAutocorrections[data.category] ?? data.category,
         value: `- [#${number}](https://github.com/actualbudget/${repo}/pull/${number}) ${body.trim()} \u{2014} thanks ${authors}`,
       };
     });
