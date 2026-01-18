@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import matter from "gray-matter";
 
-import { categoryOrder } from "../util.js";
+import { categoryAutocorrections, categoryOrder } from "../util.js";
 
 console.log("Looking in " + fs.realpathSync("upcoming-release-notes"));
 
@@ -31,6 +31,9 @@ function reportError(message) {
   if (!data.category) {
     reportError(`Release note is missing a category.`);
     return;
+  }
+  if (categoryAutocorrections[data.category]) {
+    data.category = categoryAutocorrections[data.category];
   }
   if (!categoryOrder.includes(data.category)) {
     reportError(
